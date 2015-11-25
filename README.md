@@ -6,6 +6,7 @@
 * [Useful links](#linklist)
 * [Basics](#basics)
 * [Text cleansing](#cleansing)
+* [Set up and train the classifier](#train)
 
 
 
@@ -73,7 +74,7 @@ See also the documentation [here](https://weka.wikispaces.com/Use+Weka+in+your+J
 
 An object of type `Instances` is the representation of an ARFF file once loaded- it holds the relation (table-) name, a list of attributes and all data instances.
 
-
+<a name="instance"></a>
 ### create an `Instance` for classifying
 `Instance` represents one "row" of the relation. To classify an instance with the trained classifier, the new instance has to be given the same schema as the data set used during training.
 ```java
@@ -184,7 +185,7 @@ And then either pass the filter to a `FilteredClassifier` as I'll explain later 
 ## Set up and train the classifier
 In order to preprocess and classify some tweet text, the classifier has to be trained first. We will use the meta classifier `FilteredClassifier` from the weka framework since it stores not only the trained model but _also the filter with the learned feature space_.
 
-First I create a class derived from `FilteredClassifier` to get access to the feature space (filtered instances) and be able to save it to a file:
+First create a class derived from `FilteredClassifier` to get access to the feature space (filtered instances) and be able to save it to a file:
 ```java
 	public class MyFilteredClassifier extends FilteredClassifier {
 		public Instances getFilteredInstances(){
@@ -248,4 +249,18 @@ Save the trained dictionary (feature space, attribute list) as well:
 	PrintWriter writer = new PrintWriter(new FileWriter("attributeList.arff"));
 	writer.print(attributeList);
 	writer.close();
+```
+
+
+<a name="classify"></a>
+## Use the classifier
+I'll assume the trained classifier has been saved to a file and will be recovered like so:
+```java
+	MyFilteredClassifier classifier = 
+		(MyFilteredClassifier) weka.core.SerializationHelper.read("classifier.model");
+```
+
+Before being able to classify a String (passed as a parameter, read from file) it has to be [turned into an `Instance`](#instance). The newly created one-instance test set can than be classified easily.
+```java
+	
 ```
