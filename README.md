@@ -10,7 +10,7 @@ In the next phase the text is being tokenized and converted into a [TF-IDF](http
 One can use then the trained SVM to classify new tweets.
 
 ## The ML-Framework
-We'll be using [weka](http://www.cs.waikato.ac.nz/ml/weka/) for all the hard stuff. To add weka to your java project edit the maven pom.xml and add
+We'll be using [weka](http://www.cs.waikato.ac.nz/ml/weka/) for all the hard stuff. To add weka to your java project edit the maven `pom.xml` and add
 ```xml
 		<dependency>
 			<groupId>nz.ac.waikato.cms.weka</groupId>
@@ -27,3 +27,12 @@ Weka comes with a wrapper for [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm
 		</dependency>
 ```
 
+Here are some links to the API documentation of the weka project:
+* [project homepage](http://www.cs.waikato.ac.nz/ml/weka/)
+* [weka FAQ](https://weka.wikispaces.com/Frequently+Asked+Questions)
+* [using weka in your Java code](https://weka.wikispaces.com/Use+WEKA+in+your+Java+code)
+* [programmatic use](https://weka.wikispaces.com/Programmatic+Use)
+* [weka Javadoc](http://weka.sourceforge.net/doc.stable/)
+* [youtube video tutorials on weka by Rushdi Shams](https://www.youtube.com/playlist?list=PLJbE6j2EG1pZnBhOg3_Rb63WLCprtyJag)
+
+ 
