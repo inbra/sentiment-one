@@ -177,6 +177,6 @@ One would typically use the `MyStringToWordVector` -Filter like this:
 	filter.setOutputWordCounts(true);
 	filter.setStopwords(new File(this.pwd+this.stopwordFile));
 ```
-And then either pass the filter to a `FilteredClassifier` as I'll explain later or apply it directly on the data instances, like so: `data = Filter.useFilter(data, filter);`
+And then either pass the filter to a `FilteredClassifier` as I'll explain later or apply it directly on the data instances, like so:<br>`data = Filter.useFilter(data, filter);`
 
 
