@@ -226,10 +226,26 @@ Training is done in weka using the `Evaluation` class, which can be used as well
 	// create new Evaluation object and pass the schema of the dataset
 	Evaluation eval = new Evaluation(trainingSet);
 	
+	// evaluate classifier on test-set
+	eval.evaluateModel(classifier, testSet);
+	
 	// print some stats about the result:
 	System.out.println(eval.toSummaryString());
 	// more details:
 	System.out.println(eval.toClassDetailsString());
 	// print confusion matrix
 	System.out.println(eval.toMatrixString());
+```
+
+Once the classifier is trained it can be saved to a file.
+```java
+	weka.core.SerializationHelper.write("classifier.model", classifier);
+```
+
+Save the trained dictionary (feature space, attribute list) as well:
+```java
+	Instances attributeList = ((MyFilteredClassifier) classifier).getFilteredInstances();
+	PrintWriter writer = new PrintWriter(new FileWriter("attributeList.arff"));
+	writer.print(attributeList);
+	writer.close();
 ```
