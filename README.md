@@ -180,3 +180,22 @@ One would typically use the `MyStringToWordVector` -Filter like this:
 And then either pass the filter to a `FilteredClassifier` as I'll explain later or apply it directly on the data instances, like so:<br>`data = Filter.useFilter(data, filter);`
 
 
+<a name="train"></a>
+## Set up and train the classifier
+In order to preprocess and classify some tweet text, the classifier has to be trained first. We will use the meta classifier `FilteredClassifier` from the weka framework since it stores not only the trained model but _also the filter with the learned feature space_.
+
+First I create a class derived from `FilteredClassifier` to get access to the feature space (filtered instances) and be able to save it to a file:
+```java
+	public class MyFilteredClassifier extends FilteredClassifier {
+		public Instances getFilteredInstances(){
+			return m_FilteredInstances;
+		}
+	}
+```
+
+Set up the training:
+```java
+	FilteredClassifier classifier = new MyFilteredClassifier();
+	classifier.setFilter(filter);	// the MyStringToWordVector filter 
+```
+
