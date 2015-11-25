@@ -1,4 +1,4 @@
-# Twitter sentiment analysis with weka [http://www.cs.waikato.ac.nz/ml/weka/]
+# Twitter sentiment analysis with *[weka](http://www.cs.waikato.ac.nz/ml/weka/)* API
 ## Overview
 I will try to give a short introduction to how I constructed a SVM with weka + libsvm to do sentiment analysis on tweets.
 
@@ -9,4 +9,21 @@ In the next phase the text is being tokenized and converted into a [TF-IDF](http
 
 One can use then the trained SVM to classify new tweets.
 
+## The ML-Framework
+We'll be using [weka](http://www.cs.waikato.ac.nz/ml/weka/) for all the hard stuff. To add weka to your java project edit the maven pom.xml and add
+```xml
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>weka-stable</artifactId>
+			<version>3.6.13</version>
+		</dependency>
+```
+Weka comes with a wrapper for [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm/) - which we will use for contructing the support vector machine. Add libsvm to your project using...
+```xml
+		<dependency>
+		  <groupId>com.facebook.thirdparty</groupId>
+		  <artifactId>libsvm</artifactId>
+		  <version>3.18.1</version>
+		</dependency>
+```
 
