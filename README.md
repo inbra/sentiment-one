@@ -25,7 +25,7 @@ We'll be using [weka](http://www.cs.waikato.ac.nz/ml/weka/) for all the hard stu
 			<version>3.6.13</version>
 		</dependency>
 ```
-Weka comes with a wrapper for [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm/) - which we will use for contructing the support vector machine. Add libsvm to your project using...
+Weka comes with a wrapper for [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm/) - which we will use for constructing the support vector machine. Add libsvm to your project using...
 ```xml
 		<dependency>
 		  <groupId>com.facebook.thirdparty</groupId>
@@ -42,6 +42,12 @@ Here are some links to the API documentation of the weka project:
 * [programmatic use](https://weka.wikispaces.com/Programmatic+Use)
 * [weka Javadoc](http://weka.sourceforge.net/doc.stable/)
 * [youtube video tutorials on weka by Rushdi Shams](https://www.youtube.com/playlist?list=PLJbE6j2EG1pZnBhOg3_Rb63WLCprtyJag)
+
+
+## Basics
+### ARFF files
+
+### Data `Instances`
 
 
 ## Text cleansing <a name="cleansing"></a>
