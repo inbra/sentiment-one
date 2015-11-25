@@ -1,9 +1,9 @@
 # Twitter sentiment analysis using *[weka](http://www.cs.waikato.ac.nz/ml/weka/)* API
 ## Contents <a name="toc"></a>
-	* [Table of contents](#toc)
-	* [Overview](#overview)
-	* [Useful links](#linklist)
-	* [Text cleansing](#cleansing)
+* [Table of contents](#toc)
+* [Overview](#overview)
+* [Useful links](#linklist)
+* [Text cleansing](#cleansing)
 
 
 ## Overview <a name="overview"></a>
