@@ -61,7 +61,9 @@ See also the documentation [here](https://weka.wikispaces.com/Use+Weka+in+your+J
 
 ### Data `Instances`
 > `Class for handling an ordered set of weighted instances.`
+
 An object of type `Instances` is the representation of an ARFF file once loaded- it holds the relation (table-) name, a list of attributes and all data instances.
+
 
 ### create an `Instance` for classifying
 `Instance` represents one "row" of the relation. To classify an instance with the trained classifier, the new instance has to be given the same schema as the data set used during training.
@@ -89,6 +91,21 @@ An object of type `Instances` is the representation of an ARFF file once loaded-
 	instance.setValue((Attribute) fvAtt.elementAt(0), "Text to be classified");
 	testSet.add(instance);
 ```
+
+
+### access String attribute of an `Instance`
+```java
+	int attributeIndex = 0;
+	
+	// get String value from instance
+	String text = instance.stringValue(attributeIndex);
+	
+	String modifiedText = doSomething(text);
+	
+	// set String value
+	instance.setValue(attributeIndex, modifiedText);
+```
+
 
 ## Text cleansing <a name="cleansing"></a>
 First we have to get rid of some noise in the tweet's text. We can apply custom filters (regular expression substitution) by modifying the `input()` method of the `StringToWordVector` class, that is used to tokenize the text and create the TF-IDF matrix. 
