@@ -195,7 +195,41 @@ First I create a class derived from `FilteredClassifier` to get access to the fe
 
 Set up the training:
 ```java
+	// configure SVM
+	LibSVM svm = new LibSVM();
+	svm.setKernelType(new SelectedTag(LibSVM.KERNELTYPE_RBF,LibSVM.TAGS_KERNELTYPE)); // type: RBF
+	svm.setCost(100.0);		// the C parameter
+	svm.setProbabilityEstimates(false);
+	svm.setDoNotReplaceMissingValues(true);
+	
+	// set up FilteredClassifier
 	FilteredClassifier classifier = new MyFilteredClassifier();
 	classifier.setFilter(filter);	// the MyStringToWordVector filter 
+	classifier.setClassifier(svm);  // pass the svm to the meta construct
 ```
 
+Training is done in weka using the `Evaluation` class, which can be used as well to print some statistics about the training:
+```java
+	Instances sample = 	// the training set from somewhere
+	int numFolds = 5; 	// 5 folds make a 80/20 separation between train- and test-set
+	
+	// setting up train- and test-set
+	Random rand = new Random(seed);
+	sample.randomize(rand);
+	sample.stratify(numFolds);
+
+	Instances trainingSet 	= sample.trainCV(numFolds, 0);
+	Instances testSet	= sample.testCV(numFolds, 0);
+
+	classifier.buildClassifier(trainingSet);
+
+	// create new Evaluation object and pass the schema of the dataset
+	Evaluation eval = new Evaluation(trainingSet);
+	
+	// print some stats about the result:
+	System.out.println(eval.toSummaryString());
+	// more details:
+	System.out.println(eval.toClassDetailsString());
+	// print confusion matrix
+	System.out.println(eval.toMatrixString());
+```
