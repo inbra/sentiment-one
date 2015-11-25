@@ -40,15 +40,55 @@ Here are some links to the API documentation of the weka project:
 * [weka FAQ](https://weka.wikispaces.com/Frequently+Asked+Questions)
 * [using weka in your Java code](https://weka.wikispaces.com/Use+WEKA+in+your+Java+code)
 * [programmatic use](https://weka.wikispaces.com/Programmatic+Use)
+* [writing your own filter](https://weka.wikispaces.com/Writing+your+own+Filter)
 * [weka Javadoc](http://weka.sourceforge.net/doc.stable/)
 * [youtube video tutorials on weka by Rushdi Shams](https://www.youtube.com/playlist?list=PLJbE6j2EG1pZnBhOg3_Rb63WLCprtyJag)
 
 
 ## Basics
 ### ARFF files
+Reading data from [ARFF](https://weka.wikispaces.com/ARFF) files is straightforward: 
+```java
+	Instances data = null;
+	String filename = "datafile.arff";
+	ArffLoader loader = new ArffLoader();
+
+	loader.setFile(new File(filename));
+	data = loader.getDataSet();
+```
+See also the documentation [here](https://weka.wikispaces.com/Use+Weka+in+your+Java+code#Instances-ARFF File).
+
 
 ### Data `Instances`
+> `Class for handling an ordered set of weighted instances.`
+An object of type `Instances` is the representation of an ARFF file once loaded- it holds the relation (table-) name, a list of attributes and all data instances.
 
+### create an `Instance` for classifying
+`Instance` represents one "row" of the relation. To classify an instance with the trained classifier, the new instance has to be given the same schema as the data set used during training.
+```java
+	// create new text attribute (column)
+	Attribute aText = new Attribute("text",(FastVector) null);
+
+	// create new class attribute (to store the classifier's result):
+	FastVector fvClasses = new FastVector(2);
+	fvClasses.addElement("-1");
+	fvClasses.addElement("1");
+	Attribute aSent = new Attribute("sentiment",fvClasses);
+
+	// set up schema:
+	FastVector fvAtt = new FastVector(2);
+	fvAtt.addElement(aText);
+	fvAtt.addElement(aSent);
+	
+	// create "test-set" of size 1
+	Instances testSet = new Instances("prediction", fvAtt, 1);
+	testSet.setClassIndex(testSet.numAttributes()-1);
+
+	// add the only instance
+	Instance instance = new SparseInstance(testSet.numAttributes());
+	instance.setValue((Attribute) fvAtt.elementAt(0), "Text to be classified");
+	testSet.add(instance);
+```
 
 ## Text cleansing <a name="cleansing"></a>
 First we have to get rid of some noise in the tweet's text. We can apply custom filters (regular expression substitution) by modifying the `input()` method of the `StringToWordVector` class, that is used to tokenize the text and create the TF-IDF matrix. 
