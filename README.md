@@ -262,5 +262,6 @@ I'll assume the trained classifier has been saved to a file and will be recovere
 
 Before being able to classify a String (passed as a parameter, read from file) it has to be [turned into an `Instance`](#instance). The newly created one-instance test set can than be classified easily.
 ```java
-	
+	Evaluation eval = new Evaluation(((MyFilteredClassifier) classifier).getFilteredInstances()); // set schema
+	probs = classifier.distributionForInstance(oneInstancetestSet.firstInstance());
 ```
