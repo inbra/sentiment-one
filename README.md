@@ -1,5 +1,12 @@
 # Twitter sentiment analysis using *[weka](http://www.cs.waikato.ac.nz/ml/weka/)* API
-## Overview
+## Contents <a name="toc"></a>
+	* [Table of contents](#toc)
+	* [Overview](#overview)
+	* [Useful links](#linklist)
+	* [Text cleansing](#cleansing)
+
+
+## Overview <a name="overview"></a>
 I will try to give a short introduction to how I constructed a SVM with weka + libsvm to do sentiment analysis on tweets.
 
 To do sentiment analysis on tweets, that is, predict the sentiment of any tweet if it is either positive or negative, we have to train a classifier with a set of handlabeled tweets. Each tweet has been labeled with a class attribute of '-1' for negative sentiment or '1' for positive sentiment. 
@@ -9,7 +16,7 @@ In the next phase the text is being tokenized and converted into a [TF-IDF](http
 
 One can use then the trained SVM to classify new tweets.
 
-## The ML-Framework
+## The ML-Framework <a name="ml-framework"></a>
 We'll be using [weka](http://www.cs.waikato.ac.nz/ml/weka/) for all the hard stuff. To add weka to your java project edit the maven `pom.xml` and add
 ```xml
 		<dependency>
@@ -27,6 +34,7 @@ Weka comes with a wrapper for [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm
 		</dependency>
 ```
 
+## Useful links <a name="linklist"></a>
 Here are some links to the API documentation of the weka project:
 * [project homepage](http://www.cs.waikato.ac.nz/ml/weka/)
 * [weka FAQ](https://weka.wikispaces.com/Frequently+Asked+Questions)
@@ -35,7 +43,8 @@ Here are some links to the API documentation of the weka project:
 * [weka Javadoc](http://weka.sourceforge.net/doc.stable/)
 * [youtube video tutorials on weka by Rushdi Shams](https://www.youtube.com/playlist?list=PLJbE6j2EG1pZnBhOg3_Rb63WLCprtyJag)
 
-## Text cleansing 
+
+## Text cleansing <a name="cleansing"></a>
 First we have to get rid of some noise in the tweet's text. We can apply custom filters (regular expression substitution) by modifying the `input()` method of the `StringToWordVector` class, that is used to tokenize the text and create the TF-IDF matrix. 
 
 ```java
@@ -89,7 +98,7 @@ One would typically use the `MyStringToWordVector` -Filter like this:
 	filter.setWordsToKeep(1000000);		// recommended for production: 1000000
 	filter.setDoNotOperateOnPerClassBasis(true);
 	filter.setLowerCaseTokens(true);
-	filter.setAttributeIndicesArray(new int[] {0});
+	filter.setAttributeIndicesArray(new int[] {0}); // tell the filter on which column(s) to work
 	filter.setIDFTransform(true);		// we want IDF data, so: true
 	filter.setTFTransform(false);		// false, since we want pure TF (term frequency)
 	filter.setOutputWordCounts(true);
