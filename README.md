@@ -66,10 +66,35 @@ public class MyStringToWordVector extends StringToWordVector {
 		Matcher m = p.matcher(text);
 		text = m.replaceAll("");
 		
-		...
+		// do some more cleaning ...
+		// [...]
+		
+		return text;
 	}
 	
 	
 }
 ```
+
+One would typically use the `MyStringToWordVector` -Filter like this:
+```java
+	Instances data = 				// get data from somewhere
+	NGramTokenizer tokenizer = createTokenizer();	// get a tokenizer
+	SnowballStemmer stemmer = createStemmer();	// get a word-stemmer
+	
+	MyStringToWordVector filter = new MyStringToWordVector();
+	
+	filter.setTokenizer(tokenizer);
+	filter.setInputFormat(data); 		// pass the schema of the data to the filter; throws exception
+	filter.setWordsToKeep(1000000);		// recommended for production: 1000000
+	filter.setDoNotOperateOnPerClassBasis(true);
+	filter.setLowerCaseTokens(true);
+	filter.setAttributeIndicesArray(new int[] {0});
+	filter.setIDFTransform(true);		// we want IDF data, so: true
+	filter.setTFTransform(false);		// false, since we want pure TF (term frequency)
+	filter.setOutputWordCounts(true);
+	filter.setStopwords(new File(this.pwd+this.stopwordFile));
+```
+And then either pass the filter to a `FilteredClassifier` as I'll explain later or apply it directly on the data instances, like so: `data = Filter.useFilter(data, filter);`
+
 
